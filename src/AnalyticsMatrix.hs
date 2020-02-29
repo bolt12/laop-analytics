@@ -124,4 +124,4 @@ khatri :: forall a b c .
 khatri a b =
   let x = I.fromLists (toLists a) :: I.Matrix Double a b
       y = I.fromLists (toLists b) :: I.Matrix Double a c
-   in fromLists (I.toLists (I.khatri x y))
+   in fromLists (I.toLists (I.kr x y))

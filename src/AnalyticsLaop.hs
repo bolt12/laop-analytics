@@ -16,6 +16,7 @@ import GHC.Generics
 import Data.Proxy
 import Data.Coerce
 import Control.DeepSeq
+import Prelude hiding ((.))
 
 data Description = GroupLeader | Programmer | SystemAnalyst -- ...
   deriving (Show, Eq, Enum, Bounded, Generic)
@@ -93,10 +94,10 @@ insertJob bd j d s =
   let jobTb      = jobsTable bd
       dPoint     = point d
       jPoint     = point j
-      converter  = fromF' convert
-      newJDesc   = (jDesc jobTb `junc` dPoint) `comp` tr converter
-      newJSalary = (jSalary jobTb `junc` one s) `comp` tr converter
-      newJCode   = (jCode jobTb `junc` jPoint) `comp` tr converter
+      converter  = fromF convert
+      newJDesc   = (jDesc jobTb `join` dPoint) . tr converter
+      newJSalary = (jSalary jobTb `join` one s) . tr converter
+      newJCode   = (jCode jobTb `join` jPoint) . tr converter
       newJobTb   = JT { jDesc = newJDesc, jSalary = newJSalary, jCode = newJCode }
    in bd { jobsTable = newJobTb }
   where
@@ -105,8 +106,8 @@ insertJob bd j d s =
     convert (Right ()) = nat $ fromInteger (natVal (Proxy :: Proxy (n + 1)))
 
 query :: BD jn en -> Matrix Int Branch Country
-query bd = kp2 `comp` khatri v (eCountry employeesTb) `comp` tr (eBranch employeesTb)
+query bd = sndM . kr v (eCountry employeesTb) . tr (eBranch employeesTb)
   where
     jobTb = jobsTable bd
     employeesTb = employeesTable bd
-    v = jSalary jobTb `comp` tr (jCode jobTb) `comp` eJob employeesTb
+    v = jSalary jobTb . tr (jCode jobTb) . eJob employeesTb

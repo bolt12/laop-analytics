@@ -5,12 +5,12 @@
 
 packages:
 - completed:
-    hackage: laop-0.1.0.5@sha256:3bea0379e3cc2390e233ce125062328495159eb20c78abe2751195a5d81b87e0,1838
+    hackage: laop-0.1.0.7@sha256:80f6a97c9fd3006ef08b0a77cac6b5d2c7f116c8c5d4f3464d35902507aa0c1c,1889
     pantry-tree:
-      size: 1101
-      sha256: bde81730c77899efa5b281a2c286d320b726094b6a925290838388dfa74fe0ec
+      size: 877
+      sha256: 4ae5eed5fac2398bf28bc6bcd927870f9e3bf5072a5079a44fd99ed05be73501
   original:
-    hackage: laop-0.1.0.5@sha256:3bea0379e3cc2390e233ce125062328495159eb20c78abe2751195a5d81b87e0,1838
+    hackage: laop-0.1.0.7@sha256:80f6a97c9fd3006ef08b0a77cac6b5d2c7f116c8c5d4f3464d35902507aa0c1c,1889
 snapshots:
 - completed:
     size: 524163
